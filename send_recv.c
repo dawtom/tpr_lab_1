@@ -20,13 +20,13 @@ int main(int argc, char** argv) {
   if (world_rank == 0) {
     strcpy(text, "Miala baba koguta, wsadzila go do butaMiala baba koguta, wsadzila go do butaMiala baba koguta, wsadz");
     t1 = MPI_Wtime();
-    MPI_Send(text, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+    MPI_Send(text, 100, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
     t2 = MPI_Wtime();
     printf("Time: %1.2f\n", t2-t1);
   } else
 //    RECEIVER
     if (world_rank == 1) {
-    MPI_Recv(text, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Recv(text, 100, MPI_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     printf("Process 1 received text %s from process 0\n", *text);
   }
   MPI_Finalize();

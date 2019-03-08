@@ -1,7 +1,7 @@
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 int main(int argc, char** argv) {
     MPI_Init(NULL, NULL);
     int world_rank;
@@ -14,19 +14,23 @@ int main(int argc, char** argv) {
         fprintf(stderr, "World size must be greater than 1 for %s\n", argv[0]);
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
-    char * text = malloc(100 * sizeof(char));
+    char* text = malloc(100 * sizeof(char));
 //  SENDER
     if (world_rank == 0) {
-        strcpy(text, "Miala baba koguta, wsadzila go do butaMiala baba koguta, wsadzila go do butaMiala baba koguta, wsadz");
+        printf(text);
+        strcpy(text, "Miala baba koguta, wsadzila go dala baba koguta, wsadzila go do butaMiala baba koguta, wsadz");
+        printf(text);
         t1 = MPI_Wtime();
-        MPI_Ssend(text, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        MPI_Ssend(text, 100, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
         t2 = MPI_Wtime();
         printf("Time: %1.2f\n", t2-t1);
     } else
 //    RECEIVER
     if (world_rank == 1) {
-        MPI_Recv(text, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        printf("Process 1 received text %s from process 0\n", *text);
+        MPI_Recv(text, 100, MPI_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("Process 1 received text %s from process 0\n", text);
     }
     MPI_Finalize();
+    return 0;
+
 }
