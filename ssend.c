@@ -18,9 +18,9 @@ int main(int argc, char** argv) {
 //  SENDER
     if (world_rank == 0) {
         strcpy(text, "Miala baba koguta, wsadzila go do butaMiala baba koguta, wsadzila go do butaMiala baba koguta, wsadz")
-        t1 = MPI.Wtime();
+        t1 = MPI_Wtime();
         MPI_Ssend(text, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
-        t2 = MPI.Wtime();
+        t2 = MPI_Wtime();
         printf("Time: %1.2f\n", t2-t1)
     } else
 //    RECEIVER
