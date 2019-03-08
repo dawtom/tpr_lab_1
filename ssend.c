@@ -9,6 +9,7 @@ int main(int argc, char** argv) {
     int world_size;
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
     double t1, t2;
+    int shared = -5; 
     // We are assuming at least 2 processes for this task
     if (world_size < 2) {
         fprintf(stderr, "World size must be greater than 1 for %s\n", argv[0]);
@@ -21,14 +22,17 @@ int main(int argc, char** argv) {
 	for (i = 0; i < 10000; i++) {
             strcat(text, "Miala baba koguta, wsadzila go do butaMiala baba koguta, wsadzila go do butaMiala baba koguta");
         }
+        printf("Shared in process 0 is %d", shared);
+        shared = 44;
         t1 = MPI_Wtime();
-        MPI_Ssend(text, 1000000, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
+        MPI_Rsend(text, 1000000, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
         t2 = MPI_Wtime();
         printf("Time: %1.2f\n", t2-t1);
     } else
 //    RECEIVER
     if (world_rank == 1) {
         MPI_Recv(text, 1000000, MPI_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("In second process shared is %d", shared);
         printf("Process 1 received text from process 0\n");
     }
     MPI_Finalize();
