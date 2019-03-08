@@ -17,7 +17,8 @@ int main(int argc, char** argv) {
     char * text = malloc(1000000 * sizeof(char));
 //  SENDER
     if (world_rank == 0) {
-        for (int i = 0; i < 10000; i++) {
+        int i;
+	for (i = 0; i < 10000; i++) {
             strcat(text, "Miala baba koguta, wsadzila go do butaMiala baba koguta, wsadzila go do butaMiala baba koguta, wsadz");
         }
         t1 = MPI_Wtime();
