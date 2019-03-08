@@ -23,14 +23,14 @@ int main(int argc, char** argv) {
         }
         t1 = MPI_Wtime();
         MPI_Ssend(text, 1000000, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
-        MPI_BARRIER(MPI_COMM_WORLD);
+        MPI_Barrier(MPI_COMM_WORLD);
         t2 = MPI_Wtime();
         printf("Time: %1.2f\n", t2-t1);
     } else
 //    RECEIVER
     if (world_rank == 1) {
         MPI_Recv(text, 1000000, MPI_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        MPI_BARRIER(MPI_COMM_WORLD);
+        MPI_Barrier(MPI_COMM_WORLD);
         printf("Process 1 received text from process 0\n");
     }
     MPI_Finalize();
