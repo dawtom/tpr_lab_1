@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     if (world_rank == 0) {
         int i;
 	for (i = 0; i < 10000; i++) {
-            strcat(text, "Miala baba koguta, wsadzila go do butaMiala baba koguta, wsadzila go do butaMiala baba koguta, wsadz");
+            strcat(text, "Miala baba koguta, wsadzila go do butaMiala baba koguta, wsadzila go do butaMiala baba koguta");
         }
         t1 = MPI_Wtime();
         MPI_Ssend(text, 1000000, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
