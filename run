@@ -1,0 +1,6 @@
+END=1;
+for ((i=1;i<=END;i++));
+do 
+mpicc -o ex solution.c
+mpiexec -machinefile ./allnodes -np 2 ./ex $1
+done
