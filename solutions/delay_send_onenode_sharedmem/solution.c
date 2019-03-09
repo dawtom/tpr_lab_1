@@ -22,21 +22,25 @@ int main(int argc, char** argv) {
            // strcat(text, "Miala baba koguta, wsadzila go do butaMiala baba koguta, wsadzila go do butaMiala baba koguta");
         	strcat(text, "m");
 	}
-	printf("Sending");
+	//printf("Sending");
         t1 = MPI_Wtime();
-        MPI_Ssend(text, 20, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
+        MPI_Send(text, 20, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
         //printf("Before barrier");
 	MPI_Barrier(MPI_COMM_WORLD);
 	//printf("After barrier");
         t2 = MPI_Wtime();
 	//printf("time1: %f \ntime2: %f\n", t1, t2);
         printf("Time: %1.6f\n", t2-t1);
+	FILE *fptr;
+	fptr = fopen("output","a");
+	fprintf(fptr, "%1.6f\n", t2-t1);
+	fclose(fptr);
     } else
 //    RECEIVER
     if (world_rank == 1) {
         MPI_Recv(text, 20, MPI_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         MPI_Barrier(MPI_COMM_WORLD);
-        printf("Process 1 received text from process 0\n");
+        //printf("Process 1 received text from process 0\n");
     }
     MPI_Finalize();
     return 0;
