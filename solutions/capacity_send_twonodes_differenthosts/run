@@ -1,6 +1,9 @@
-END=20;
-for ((i=1;i<=END;i++));
-do 
-mpicc -o ex solution.c
-mpiexec -machinefile ./allnodes -np 2 ./ex
+END=3;
+for K in 1 10 50 100 500 1000 5000 10000 20000
+do
+	for ((i=1;i<=END;i++));
+	do 
+		mpicc -o ex solution.c
+		mpiexec -machinefile ./allnodes -np 2 ./ex $K
+	done
 done
